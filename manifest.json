@@ -1,19 +1,20 @@
 {
-  "name": "MYFIT - by Soufiane",
+  "name": "MYFIT Executive Coach",
   "short_name": "MYFIT",
+  "description": "Application de coaching ultra-personnalisée pour Soufiane",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0a0a0a",
-  "theme_color": "#0a0a0a",
-  "orientation": "portrait",
+  "background_color": "#0d0d0f",
+  "theme_color": "#121212",
+  "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/3043/3043219.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/3043/3043218.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/3043/3043219.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/3043/3043218.png",
       "sizes": "512x512",
       "type": "image/png"
     }
