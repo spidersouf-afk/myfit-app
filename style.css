@@ -6,11 +6,12 @@
     --blue-electric: #00d2ff;
     --blue-dark: #3a7bd5;
     --blue-glow: rgba(0, 210, 255, 0.3);
+    --green-success: #2ecc71;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
-body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 80px; }
+body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 90px; }
 
 header { display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; border-bottom: 1px solid #222; }
 .text-blue { color: var(--blue-electric); }
@@ -18,18 +19,19 @@ header { display: flex; justify-content: space-between; align-items: center; pad
 .mt-1 { margin-top: 5px; }
 .mt-2 { margin-top: 10px; }
 .mt-3 { margin-top: 15px; }
+.mb-2 { margin-bottom: 10px; }
 .text-center { text-align: center; }
 
 .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; padding: 20px 30px; }
 
-.card { background-color: var(--card-bg); border-radius: 12px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.6); display: flex; flex-direction: column; border: 1px solid #222; }
+.card { background-color: var(--card-bg); border-radius: 12px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.6); display: flex; flex-direction: column; border: 1px solid #222; position: relative; }
 .card h3 { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
 
 .glow-border { border: 1px solid var(--blue-dark); box-shadow: 0 0 15px var(--blue-glow); }
 
 /* Progress */
 .progress-bar-container { background: #222; border-radius: 10px; height: 10px; width: 100%; overflow: hidden;}
-.progress-bar { background: linear-gradient(90deg, var(--blue-dark), var(--blue-electric)); height: 100%; border-radius: 10px; box-shadow: 0 0 10px var(--blue-electric); }
+.progress-bar { background: linear-gradient(90deg, var(--blue-dark), var(--blue-electric)); height: 100%; border-radius: 10px; box-shadow: 0 0 10px var(--blue-electric); transition: width 0.5s ease; }
 .kpi-row { display: flex; align-items: center; justify-content: space-between; }
 .kpi-value { font-size: 2.5rem; font-weight: bold; }
 .goals p { font-size: 0.9rem; margin-bottom: 5px; color: #ddd; }
@@ -43,12 +45,18 @@ header { display: flex; justify-content: space-between; align-items: center; pad
 .ai-input { display: flex; gap: 10px; margin-top: 15px; }
 .ai-input input { flex-grow: 1; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #0f0f0f; color: white; outline: none; }
 .ai-input input:focus { border-color: var(--blue-electric); }
-.btn-blue { background: linear-gradient(90deg, var(--blue-dark), var(--blue-electric)); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+
+/* Buttons */
+.btn-blue { background: linear-gradient(90deg, var(--blue-dark), var(--blue-electric)); color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; text-align: center; text-decoration: none; display: inline-block; }
 .btn-blue:hover { box-shadow: 0 0 15px var(--blue-glow); }
+.btn-outline { background: transparent; color: var(--blue-electric); border: 2px solid var(--blue-electric); padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+.btn-outline:hover { background: rgba(0, 210, 255, 0.1); }
 
 /* Water & Macros */
 .macros-card { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
-.chart-container-small { position: relative; height: 140px; width: 140px; margin: auto; }
+.chart-container-small { position: relative; height: 140px; width: 140px; margin: auto; display: flex; align-items: center; justify-content: center; }
+.chart-center-text { position: absolute; text-align: center; font-size: 1.1rem; font-weight: bold; }
+.chart-center-text small { font-size: 0.75rem; color: var(--text-muted); }
 .water-section { display: flex; flex-direction: column; align-items: center; border-left: 1px solid #222; padding-left: 15px; }
 .bottle-container { width: 35px; height: 90px; border: 2px solid #555; border-radius: 5px 5px 10px 10px; position: relative; overflow: hidden; background: #111; }
 .bottle-fill { position: absolute; bottom: 0; width: 100%; background: linear-gradient(0deg, #0072ff, #00d2ff); transition: height 0.4s ease; }
@@ -66,31 +74,47 @@ header { display: flex; justify-content: space-between; align-items: center; pad
 .bottom-nav a:hover { color: white; }
 .bottom-nav i { font-size: 1.2rem; }
 
+/* Custom Layout additions for new features */
+.col-full { grid-column: 1 / -1; }
+.app-page { display: none !important; }
+.app-page.active { display: grid !important; }
+
+/* Workout selector styling */
+.workout-selector-box { background: #1c1c1e; padding: 15px; border-radius: 8px; border: 1px solid #333; }
+.custom-select { width: 100%; padding: 12px; background: #0f0f0f; border: 1px solid #444; color: white; border-radius: 6px; margin-top: 8px; outline: none; }
+.custom-select:focus { border-color: var(--blue-electric); }
+.suggestion-banner { background: rgba(0, 210, 255, 0.1); border-left: 4px solid var(--blue-electric); padding: 15px; border-radius: 6px; font-size: 0.95rem; }
+
+/* Nutrition Day styling */
+.day-selector { display: flex; gap: 10px; }
+.btn-day { flex: 1; padding: 10px; background: #1c1c1e; border: 1px solid #333; color: white; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+.btn-day.active { background: var(--blue-electric); color: #000; border-color: var(--blue-electric); }
+.meal-item { display: flex; justify-content: space-between; align-items: center; background: #1c1c1e; padding: 15px; border-radius: 8px; border-left: 4px solid var(--blue-electric); margin-bottom: 12px; }
+.meal-info h4 { font-size: 1rem; margin-bottom: 4px; }
+.meal-info p { font-size: 0.85rem; color: var(--text-muted); }
+.checkbox-container { display: flex; align-items: center; }
+.checkbox-container input[type="checkbox"] { width: 22px; height: 22px; cursor: pointer; accent-color: var(--blue-electric); }
+
+/* Coach Live training */
+.live-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 10px; }
+.badge-live { background: rgba(235, 77, 75, 0.2); color: #eb4d4b; font-weight: bold; font-size: 0.8rem; border: 1px solid #eb4d4b; padding: 4px 8px; border-radius: 4px; }
+.badge-live i { font-size: 0.6rem; margin-right: 5px; animation: blink 1s infinite alternate; }
+.exercise-tracker-card h2 { font-size: 1.8rem; font-weight: bold; margin-bottom: 5px; }
+.sets-progress { display: flex; flex-direction: column; gap: 8px; }
+.set-row { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #0f0f0f; border-radius: 6px; border: 1px solid #222; }
+.set-row.done { border-color: var(--green-success); background: rgba(46, 204, 113, 0.05); }
+.timer-container { background: #0f0f0f; padding: 15px; border-radius: 8px; text-align: center; border: 1px solid #333; }
+.timer-container h1 { font-size: 2.5rem; color: var(--blue-electric); font-weight: bold; }
+.workout-actions { display: flex; gap: 10px; }
+.workout-actions button { flex: 1; }
+
+@keyframes blink {
+    from { opacity: 0.3; }
+    to { opacity: 1; }
+}
+
 @media (max-width: 768px) {
     .dashboard { grid-template-columns: 1fr; padding: 15px; }
     .macros-card { grid-template-columns: 1fr; }
     .water-section { border-left: none; border-top: 1px solid #222; padding-left: 0; padding-top: 15px; }
-}
-/* Gestion du changement de page */
-.app-page {
-    display: none !important;
-}
-.app-page.active {
-    display: grid !important;
-}
-.col-full {
-    grid-column: 1 / -1;
-}
-.badge {
-    background: var(--blue-dark);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-}
-.meal-item, .exercise-item {
-    background: #1c1c1e;
-    padding: 15px;
-    border-radius: 8px;
-    border-left: 4px solid var(--blue-electric);
-    margin-bottom: 10px;
 }
