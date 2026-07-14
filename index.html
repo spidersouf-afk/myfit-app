@@ -29,10 +29,10 @@
             <div class="card progression-card glow-border">
                 <h3>PROGRESSION GLOBALE</h3>
                 <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: 62%;"></div>
+                    <div class="progress-bar" id="global-progress-bar" style="width: 62%;"></div>
                 </div>
                 <div class="kpi-row mt-3">
-                    <div class="kpi-value text-blue">62%</div>
+                    <div class="kpi-value text-blue" id="global-progress-text">62%</div>
                     <div class="goals">
                         <p><i class="fas fa-dumbbell text-blue"></i> Construire du muscle</p>
                         <p><i class="fas fa-fire text-blue"></i> Perdre de la graisse</p>
@@ -72,9 +72,12 @@
         <section class="col">
             <div class="card macros-card">
                 <div class="macro-section">
-                    <h3>MACROS</h3>
+                    <h3>CALORIES JOURNALIÈRES</h3>
                     <div class="chart-container-small">
                         <canvas id="macrosChart"></canvas>
+                        <div class="chart-center-text">
+                            <span id="consumed-calories">0</span><br><small>/ 2500 kcal</small>
+                        </div>
                     </div>
                 </div>
                 <div class="water-section">
@@ -89,35 +92,45 @@
         </section>
     </main>
 
-    <!-- PAGE 2 : SÉANCES -->
+    <!-- PAGE 2 : SÉANCES (PLANIFICATEUR) -->
     <main id="page-seances" class="dashboard app-page">
         <section class="col-full">
             <div class="card glow-border">
-                <h3>SÉANCE DU JOUR : JOUR 1 (Poitrine / Triceps / Abdos)</h3>
-                <div class="exercise-item mt-3">
-                    <div class="exercise-header">
-                        <h4>1. Développé Couché</h4>
-                        <span class="badge">4 Séries x 10 Reps</span>
-                    </div>
-                    <p class="mt-1 text-muted">Focus sur la phase excentrique. Garde les omoplates serrées.</p>
-                    <button class="btn-blue small-btn mt-2" onclick="this.innerText='✓ Terminé'; this.style.opacity='0.5';">Terminé</button>
+                <h3>PLANIFICATEUR DE SÉANCES</h3>
+                <p class="text-muted mb-2">Définis ta séance validée aujourd'hui pour mettre à jour ton calendrier opérationnel :</p>
+                
+                <div class="workout-selector-box">
+                    <label for="workout-select">Quelle séance as-tu faite aujourd'hui ?</label>
+                    <select id="workout-select" class="custom-select" onchange="selectWorkout(this.value)">
+                        <option value="">-- Sélectionner --</option>
+                        <option value="1">Jour 1 : Poitrine / Triceps / Abdos</option>
+                        <option value="2">Jour 2 : Dos / Biceps</option>
+                        <option value="3">Jour 3 : Jambes / Épaules</option>
+                    </select>
+                </div>
+
+                <div class="suggestion-banner mt-3" id="workout-suggestion">
+                    <i class="fas fa-bullseye text-blue"></i> Sélectionne une séance pour voir ta prochaine recommandation.
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- PAGE 3 : NUTRITION -->
+    <!-- PAGE 3 : NUTRITION (DIVERSIFICATION) -->
     <main id="page-nutrition" class="dashboard app-page">
         <section class="col-full">
             <div class="card">
-                <h3>MON PLAN ALIMENTAIRE</h3>
-                <div class="meal-item mt-2">
-                    <p><strong>Petit déjeuner (550 kcal)</strong></p>
-                    <p class="text-muted">3 œufs, 60g flocons d'avoine, 1 banane, café</p>
+                <h3>MON ASSIETTE DE PERFORMANCE</h3>
+                <p class="text-muted mb-2">Choisis un jour pour varier tes menus et coche ce que tu as mangé pour mettre à jour tes calories :</p>
+                
+                <div class="day-selector">
+                    <button class="btn-day active" onclick="loadNutritionDay('lundi')">Lundi</button>
+                    <button class="btn-day" onclick="loadNutritionDay('mardi')">Mardi</button>
+                    <button class="btn-day" onclick="loadNutritionDay('mercredi')">Mercredi</button>
                 </div>
-                <div class="meal-item mt-2">
-                    <p><strong>Déjeuner (650 kcal)</strong></p>
-                    <p class="text-muted">200g poulet, 100g riz complet, brocolis, huile d'olive</p>
+
+                <div class="meals-list mt-3" id="meals-container">
+                    <!-- Les repas s'affichent dynamiquement via JS -->
                 </div>
             </div>
         </section>
@@ -127,7 +140,7 @@
     <main id="page-stats" class="dashboard app-page">
         <section class="col-full">
             <div class="card">
-                <h3>ÉVOLUTION SÉANCES & FORCE (KPI)</h3>
+                <h3>HISTORIQUE ET KPI</h3>
                 <div class="chart-container">
                     <canvas id="kpiChart"></canvas>
                 </div>
@@ -135,12 +148,42 @@
         </section>
     </main>
 
-    <!-- PAGE 5 : COACH -->
+    <!-- PAGE 5 : COACH (SUIVI LIVE EN ENTRAÎNEMENT) -->
     <main id="page-coach" class="dashboard app-page">
         <section class="col-full">
-            <div class="card text-center">
-                <h3>Mon Coach Personnel</h3>
-                <p class="mt-3">"Chaque jour est un nouveau round Soufiane. Reste focus sur tes objectifs."</p>
+            <!-- Mode Hors Entraînement -->
+            <div class="card text-center" id="coach-start-screen">
+                <div class="ai-avatar"><i class="fas fa-running"></i></div>
+                <h3>DÉMARRER LE ROUND DU JOUR</h3>
+                <p class="mt-2 text-muted">Prêt à entrer dans l'arène ? Lance le suivi d'entraînement en temps réel avec ton coach.</p>
+                <button class="btn-blue mt-3" onclick="startLiveWorkout()">LANCER L'ENTRAÎNEMENT</button>
+            </div>
+
+            <!-- Mode Live Entraînement (Actif) -->
+            <div class="card glow-border" id="coach-live-screen" style="display: none;">
+                <div class="live-header">
+                    <span class="badge badge-live"><i class="fas fa-circle"></i> EN DIRECT</span>
+                    <h3 id="live-workout-title">SÉANCE DU JOUR</h3>
+                </div>
+
+                <div class="exercise-tracker-card mt-3">
+                    <h2 id="live-exercise-name">Développé Couché</h2>
+                    <p class="text-muted" id="live-exercise-desc">Description de l'exercice...</p>
+                    
+                    <div class="sets-progress mt-2" id="live-sets-container">
+                        <!-- Les séries s'affichent ici -->
+                    </div>
+
+                    <div class="timer-container mt-3" id="timer-box" style="display: none;">
+                        <p class="text-muted">REPOS CONSEILLÉ</p>
+                        <h1 id="timer-display">60s</h1>
+                    </div>
+
+                    <div class="workout-actions mt-3">
+                        <button class="btn-blue" id="btn-validate-set" onclick="validateSet()">VALIDER LA SÉRIE</button>
+                        <button class="btn-outline" id="btn-next-exercise" onclick="nextExercise()" style="display: none;">EXERCICE SUIVANT</button>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -151,7 +194,7 @@
         <a href="#" class="nav-link" data-target="page-seances"><i class="fas fa-calendar-alt"></i><span>Séances</span></a>
         <a href="#" class="nav-link" data-target="page-nutrition"><i class="fas fa-apple-alt"></i><span>Nutrition</span></a>
         <a href="#" class="nav-link" data-target="page-stats"><i class="fas fa-chart-bar"></i><span>Stats</span></a>
-        <a href="#" class="nav-link" data-target="page-coach"><i class="fas fa-comment-dots"></i><span>Coach</span></a>
+        <a href="#" class="nav-link" data-target="page-coach" id="nav-coach-btn"><i class="fas fa-dumbbell"></i><span>Coach Live</span></a>
     </nav>
 
     <script src="app.js"></script>
