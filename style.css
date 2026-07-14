@@ -71,3 +71,26 @@ header { display: flex; justify-content: space-between; align-items: center; pad
     .macros-card { grid-template-columns: 1fr; }
     .water-section { border-left: none; border-top: 1px solid #222; padding-left: 0; padding-top: 15px; }
 }
+/* Gestion du changement de page */
+.app-page {
+    display: none !important;
+}
+.app-page.active {
+    display: grid !important;
+}
+.col-full {
+    grid-column: 1 / -1;
+}
+.badge {
+    background: var(--blue-dark);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+.meal-item, .exercise-item {
+    background: #1c1c1e;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid var(--blue-electric);
+    margin-bottom: 10px;
+}
