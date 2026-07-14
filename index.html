@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MYFIT - by Soufiane</title>
+    <title>MYFIT - Executive Coach</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#121212">
@@ -14,12 +14,13 @@
     <header>
         <div class="user-info">
             <h1>Bonjour Soufiane 👋</h1>
+            <p class="subtitle">Focus & Performance</p>
         </div>
         <div class="app-title">
-            <h2><span class="text-blue">MYFIT</span></h2>
+            <h2><span class="text-blue">MYFIT</span> <small class="version">v2.0</small></h2>
         </div>
         <div class="profile-pic">
-            <i class="fas fa-user-circle"></i>
+            <i class="fas fa-user-circle text-blue"></i>
         </div>
     </header>
 
@@ -27,44 +28,44 @@
     <main id="page-accueil" class="dashboard app-page active">
         <section class="col">
             <div class="card progression-card glow-border">
-                <h3>PROGRESSION GLOBALE</h3>
+                <h3>PROGRESSION DU CYCLE</h3>
                 <div class="progress-bar-container">
                     <div class="progress-bar" id="global-progress-bar" style="width: 62%;"></div>
                 </div>
                 <div class="kpi-row mt-3">
                     <div class="kpi-value text-blue" id="global-progress-text">62%</div>
                     <div class="goals">
-                        <p><i class="fas fa-dumbbell text-blue"></i> Construire du muscle</p>
-                        <p><i class="fas fa-fire text-blue"></i> Perdre de la graisse</p>
+                        <p><i class="fas fa-dumbbell text-blue"></i> Focus : Hypertrophie Myofibrillaire</p>
+                        <p><i class="fas fa-fire text-blue"></i> Déficit Calorique Contrôlé</p>
                     </div>
                 </div>
             </div>
             <div class="card weight-card">
                 <div class="metric">
-                    <span>Poids actuel</span>
-                    <h4>90.0 <small>kg</small> <i class="fas fa-arrow-right text-blue"></i> 82.0 <small>kg</small></h4>
+                    <span>Poids cible</span>
+                    <h4>90.0 kg <i class="fas fa-arrow-right text-blue"></i> 82.0 kg</h4>
                 </div>
                 <div class="metric mt-2">
-                    <span>IMC</span>
-                    <h4>31.2</h4>
+                    <span>IMC Actuel</span>
+                    <h4>31.2 <span class="badge badge-warning">Surpoids</span></h4>
                 </div>
             </div>
         </section>
 
         <section class="col">
             <div class="card ai-card">
-                <h3>INTELLIGENCE ARTIFICIELLE</h3>
+                <h3>ASSISTANT IA ATHLÈTE</h3>
                 <div class="ai-avatar">
                     <i class="fas fa-robot"></i>
                 </div>
                 <div class="chat-container" id="chat-container">
                     <div class="message ai-message">
-                        Prêt pour le round d'aujourd'hui ? Dites comment vous vous sentez...
+                        Salut Soufiane. Prêt à dominer ton entraînement aujourd'hui ? Indique-moi tes sensations ou tes douleurs éventuelles.
                     </div>
                 </div>
                 <div class="ai-input">
-                    <input type="text" id="ai-input" placeholder="ex: J'ai mal au dos...">
-                    <button onclick="sendMessage()" class="btn-blue">CONSEILLEZ-MOI</button>
+                    <input type="text" id="ai-input" placeholder="ex: J'ai une raideur à l'épaule gauche...">
+                    <button onclick="sendMessage()" class="btn-blue">INTERROGER</button>
                 </div>
             </div>
         </section>
@@ -72,65 +73,139 @@
         <section class="col">
             <div class="card macros-card">
                 <div class="macro-section">
-                    <h3>CALORIES JOURNALIÈRES</h3>
+                    <h3>SUIVI DES CALORIES</h3>
                     <div class="chart-container-small">
                         <canvas id="macrosChart"></canvas>
                         <div class="chart-center-text">
-                            <span id="consumed-calories">0</span><br><small>/ 2500 kcal</small>
+                            <span id="consumed-calories">0</span><br><small id="target-calories">/ 2500 kcal</small>
                         </div>
+                    </div>
+                    <div class="macro-mini-stats mt-2">
+                        <div><span class="dot p-dot"></span>P: <strong id="macro-p">0g</strong></div>
+                        <div><span class="dot g-dot"></span>G: <strong id="macro-g">0g</strong></div>
+                        <div><span class="dot l-dot"></span>L: <strong id="macro-l">0g</strong></div>
                     </div>
                 </div>
                 <div class="water-section">
-                    <h3>EAU RESTANTE</h3>
+                    <h3>HYDRATATION</h3>
                     <div class="bottle-container">
                         <div class="bottle-fill" id="bottle-fill" style="height: 60%;"></div>
                     </div>
-                    <p class="text-center mt-1" id="water-text">1.2L</p>
+                    <p class="text-center mt-1 font-weight-bold" id="water-text">1.2L restants</p>
                     <button class="btn-blue small-btn" onclick="addWater()">+250ml</button>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- PAGE 2 : SÉANCES (PLANIFICATEUR) -->
+    <!-- PAGE 2 : SÉANCES & PLANIFICATEUR -->
     <main id="page-seances" class="dashboard app-page">
         <section class="col-full">
             <div class="card glow-border">
-                <h3>PLANIFICATEUR DE SÉANCES</h3>
-                <p class="text-muted mb-2">Définis ta séance validée aujourd'hui pour mettre à jour ton calendrier opérationnel :</p>
+                <h3>PLANIFICATION INTELLIGENTE</h3>
+                <p class="text-muted mb-2">Déclare ta séance du jour. Notre algorithme calculera ta prochaine séance cible pour éviter le surentraînement :</p>
                 
                 <div class="workout-selector-box">
-                    <label for="workout-select">Quelle séance as-tu faite aujourd'hui ?</label>
-                    <select id="workout-select" class="custom-select" onchange="selectWorkout(this.value)">
-                        <option value="">-- Sélectionner --</option>
-                        <option value="1">Jour 1 : Poitrine / Triceps / Abdos</option>
-                        <option value="2">Jour 2 : Dos / Biceps</option>
-                        <option value="3">Jour 3 : Jambes / Épaules</option>
+                    <label for="workout-select">Quelle séance as-tu validée aujourd'hui ?</label>
+                    <select id="workout-select" class="custom-select" onchange="calculateNextWorkout(this.value)">
+                        <option value="">-- Sélectionner la séance du jour --</option>
+                        <option value="push">Séance PUSH (Pectoraux, Épaules, Triceps)</option>
+                        <option value="pull">Séance PULL (Dos, Arrière d'épaule, Biceps)</option>
+                        <option value="legs">Séance LEGS & ABS (Quadriceps, Ischios, Mollets, Abdos)</option>
                     </select>
                 </div>
 
                 <div class="suggestion-banner mt-3" id="workout-suggestion">
-                    <i class="fas fa-bullseye text-blue"></i> Sélectionne une séance pour voir ta prochaine recommandation.
+                    <i class="fas fa-info-circle text-blue"></i> Sélectionne une séance pour mettre à jour ton plan opérationnel.
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <h3>APERÇU DES PROGRAMMES MODERNES (SCIENCE-BASED)</h3>
+                <div class="program-grid mt-2">
+                    <div class="program-mini-card">
+                        <h5>1. PUSH</h5>
+                        <p class="text-muted">Focus tension continue sur le haut de poitrine & deltoïdes latéraux.</p>
+                    </div>
+                    <div class="program-mini-card">
+                        <h5>2. PULL</h5>
+                        <p class="text-muted">Focus étirement des grands dorsaux et épaisseur du milieu du dos.</p>
+                    </div>
+                    <div class="program-mini-card">
+                        <h5>3. LEGS & ABS</h5>
+                        <p class="text-muted">Focus force athlétique et recrutement de la chaîne postérieure.</p>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- PAGE 3 : NUTRITION (DIVERSIFICATION) -->
+    <!-- PAGE 3 : NUTRITION (DIVERSIFICATION DYNAMIQUE) -->
     <main id="page-nutrition" class="dashboard app-page">
         <section class="col-full">
-            <div class="card">
-                <h3>MON ASSIETTE DE PERFORMANCE</h3>
-                <p class="text-muted mb-2">Choisis un jour pour varier tes menus et coche ce que tu as mangé pour mettre à jour tes calories :</p>
+            <div class="card glow-border">
+                <h3>PLAN NUTRITIONNEL ET VARIATIONS</h3>
+                <p class="text-muted mb-3">Sélectionne ton jour d'entraînement, puis compose tes repas à la carte. Les calories et macros s'adaptent instantanément !</p>
                 
                 <div class="day-selector">
-                    <button class="btn-day active" onclick="loadNutritionDay('lundi')">Lundi</button>
-                    <button class="btn-day" onclick="loadNutritionDay('mardi')">Mardi</button>
-                    <button class="btn-day" onclick="loadNutritionDay('mercredi')">Mercredi</button>
+                    <button class="btn-day active" onclick="selectNutritionDay('Lundi')">Lundi</button>
+                    <button class="btn-day" onclick="selectNutritionDay('Mardi')">Mardi</button>
+                    <button class="btn-day" onclick="selectNutritionDay('Mercredi')">Mercredi</button>
+                    <button class="btn-day" onclick="selectNutritionDay('Jeudi')">Jeudi</button>
                 </div>
 
-                <div class="meals-list mt-3" id="meals-container">
-                    <!-- Les repas s'affichent dynamiquement via JS -->
+                <div class="nutrition-composer mt-3">
+                    <!-- Petit Déjeuner -->
+                    <div class="meal-card-dropdown">
+                        <div class="meal-header-select">
+                            <span class="meal-tag"><i class="fas fa-coffee"></i> PETIT DÉJEUNER</span>
+                            <select id="select-breakfast" class="meal-dropdown" onchange="applyMealChange('breakfast', this.value)">
+                                <option value="muscle">Option Prise de Muscle (Avoine & Œufs)</option>
+                                <option value="shred">Option Sèche / Perte de Gras (Omelette Légère)</option>
+                                <option value="express">Option Express (Shaker Protéiné & Banane)</option>
+                            </select>
+                        </div>
+                        <div class="meal-details" id="desc-breakfast">Chargement...</div>
+                    </div>
+
+                    <!-- Déjeuner -->
+                    <div class="meal-card-dropdown mt-2">
+                        <div class="meal-header-select">
+                            <span class="meal-tag"><i class="fas fa-utensils"></i> DÉJEUNER</span>
+                            <select id="select-lunch" class="meal-dropdown" onchange="applyMealChange('lunch', this.value)">
+                                <option value="muscle">Option Prise de Muscle (Poulet, Riz, Brocolis)</option>
+                                <option value="shred">Option Sèche (Cabillaud & Patates Douces)</option>
+                                <option value="express">Option Express (Wrap Thon & Avocat Rapide)</option>
+                            </select>
+                        </div>
+                        <div class="meal-details" id="desc-lunch">Chargement...</div>
+                    </div>
+
+                    <!-- Collation après-sport -->
+                    <div class="meal-card-dropdown mt-2">
+                        <div class="meal-header-select">
+                            <span class="meal-tag"><i class="fas fa-apple-alt"></i> COLLATION APRES-SPORT</span>
+                            <select id="select-snack" class="meal-dropdown" onchange="applyMealChange('snack', this.value)">
+                                <option value="muscle">Option Anabolique (Whey, Banane & Beurre d'Amande)</option>
+                                <option value="shred">Option Satiété (Fromage Blanc 0% & Baies)</option>
+                                <option value="express">Option Ultra-Rapide (Barre Protéinée Premium)</option>
+                            </select>
+                        </div>
+                        <div class="meal-details" id="desc-snack">Chargement...</div>
+                    </div>
+
+                    <!-- Dîner -->
+                    <div class="meal-card-dropdown mt-2">
+                        <div class="meal-header-select">
+                            <span class="meal-tag"><i class="fas fa-moon"></i> DÎNER</span>
+                            <select id="select-dinner" class="meal-dropdown" onchange="applyMealChange('dinner', this.value)">
+                                <option value="muscle">Option Reconstitution (Saumon, Quinoa, Asperges)</option>
+                                <option value="shred">Option Sèche Nocturne (Dinde & Poêlée de Légumes verts)</option>
+                                <option value="express">Option Express (Salade de Thon, Œufs durs & Feta)</option>
+                            </select>
+                        </div>
+                        <div class="meal-details" id="desc-dinner">Chargement...</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -140,7 +215,8 @@
     <main id="page-stats" class="dashboard app-page">
         <section class="col-full">
             <div class="card">
-                <h3>HISTORIQUE ET KPI</h3>
+                <h3>ÉVOLUTION DE LA FORCE & DES CHARGES</h3>
+                <p class="text-muted mb-2">Suivi de ton volume de travail hebdomadaire (en tonnes cumulées) :</p>
                 <div class="chart-container">
                     <canvas id="kpiChart"></canvas>
                 </div>
@@ -148,53 +224,68 @@
         </section>
     </main>
 
-    <!-- PAGE 5 : COACH (SUIVI LIVE EN ENTRAÎNEMENT) -->
+    <!-- PAGE 5 : COACH LIVE (TRAINING TRACKER PRO) -->
     <main id="page-coach" class="dashboard app-page">
         <section class="col-full">
-            <!-- Mode Hors Entraînement -->
+            <!-- Choix et Lancement de l'Entraînement -->
             <div class="card text-center" id="coach-start-screen">
-                <div class="ai-avatar"><i class="fas fa-running"></i></div>
-                <h3>DÉMARRER LE ROUND DU JOUR</h3>
-                <p class="mt-2 text-muted">Prêt à entrer dans l'arène ? Lance le suivi d'entraînement en temps réel avec ton coach.</p>
-                <button class="btn-blue mt-3" onclick="startLiveWorkout()">LANCER L'ENTRAÎNEMENT</button>
+                <div class="ai-avatar"><i class="fas fa-running text-blue"></i></div>
+                <h3>CONSOLE DE WORKOUT LIVE</h3>
+                <p class="mt-2 text-muted">Sélectionne ton objectif du jour et connecte-toi à ton protocole d'entraînement :</p>
+                
+                <div class="workout-selector-box mt-3 text-left">
+                    <label for="live-workout-select">Sélectionne la routine à exécuter :</label>
+                    <select id="live-workout-select" class="custom-select">
+                        <option value="push">PUSH - Focus Pectoraux / Épaules / Triceps</option>
+                        <option value="pull">PULL - Focus Dos / Biceps / Arrière d'Épaule</option>
+                        <option value="legs">LEGS - Focus Quadriceps / Ischios / Abdos</option>
+                    </select>
+                </div>
+
+                <button class="btn-blue mt-3" onclick="startLiveWorkout()">LANCER LA SÉANCE LIVE</button>
             </div>
 
-            <!-- Mode Live Entraînement (Actif) -->
+            <!-- Séance Active -->
             <div class="card glow-border" id="coach-live-screen" style="display: none;">
                 <div class="live-header">
-                    <span class="badge badge-live"><i class="fas fa-circle"></i> EN DIRECT</span>
-                    <h3 id="live-workout-title">SÉANCE DU JOUR</h3>
+                    <span class="badge badge-live"><i class="fas fa-circle"></i> TRAINING ACTIVE</span>
+                    <h4 id="live-workout-title">SÉANCE ACTIVE</h4>
                 </div>
 
                 <div class="exercise-tracker-card mt-3">
-                    <h2 id="live-exercise-name">Développé Couché</h2>
-                    <p class="text-muted" id="live-exercise-desc">Description de l'exercice...</p>
-                    
-                    <div class="sets-progress mt-2" id="live-sets-container">
-                        <!-- Les séries s'affichent ici -->
+                    <div class="exercise-meta">
+                        <span class="ex-index" id="live-ex-counter">Exercice 1/4</span>
+                        <h2 id="live-exercise-name">Développé Couché Incliné Halteres</h2>
+                        <p class="text-muted mt-1" id="live-exercise-desc">Description technique de l'exercice...</p>
                     </div>
 
+                    <!-- Liste des Séries Interactives -->
+                    <div class="sets-progress mt-3" id="live-sets-container">
+                        <!-- Généré par JS -->
+                    </div>
+
+                    <!-- Chronomètre de récupération -->
                     <div class="timer-container mt-3" id="timer-box" style="display: none;">
-                        <p class="text-muted">REPOS CONSEILLÉ</p>
+                        <span class="timer-title"><i class="fas fa-clock"></i> REPOS MUSCULAIRE CONSEILLÉ</span>
                         <h1 id="timer-display">60s</h1>
                     </div>
 
                     <div class="workout-actions mt-3">
-                        <button class="btn-blue" id="btn-validate-set" onclick="validateSet()">VALIDER LA SÉRIE</button>
-                        <button class="btn-outline" id="btn-next-exercise" onclick="nextExercise()" style="display: none;">EXERCICE SUIVANT</button>
+                        <button class="btn-blue" id="btn-validate-set" onclick="validateLiveSet()">VALIDER LA SÉRIE</button>
+                        <button class="btn-outline" id="btn-next-exercise" onclick="nextLiveExercise()" style="display: none;">EXERCICE SUIVANT</button>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- BARRE DE NAVIGATION DYNAMIQUE -->
+    <!-- NAV BARRE -->
     <nav class="bottom-nav">
         <a href="#" class="nav-link active" data-target="page-accueil"><i class="fas fa-home"></i><span>Accueil</span></a>
         <a href="#" class="nav-link" data-target="page-seances"><i class="fas fa-calendar-alt"></i><span>Séances</span></a>
         <a href="#" class="nav-link" data-target="page-nutrition"><i class="fas fa-apple-alt"></i><span>Nutrition</span></a>
         <a href="#" class="nav-link" data-target="page-stats"><i class="fas fa-chart-bar"></i><span>Stats</span></a>
-        <a href="#" class="nav-link" data-target="page-coach" id="nav-coach-btn"><i class="fas fa-dumbbell"></i><span>Coach Live</span></a>
+        <a href="#" class="nav-link" data-target="page-coach"><i class="fas fa-dumbbell"></i><span>Coach Live</span></a>
     </nav>
 
     <script src="app.js"></script>
