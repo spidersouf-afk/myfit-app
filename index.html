@@ -7,9 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#121212">
-    <!-- Chart.js pour les diagrammes -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- FontAwesome pour les icônes -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
@@ -18,15 +16,15 @@
             <h1>Bonjour Soufiane 👋</h1>
         </div>
         <div class="app-title">
-            <h2><span class="text-blue">MYFIT</span> - by Soufiane</h2>
+            <h2><span class="text-blue">MYFIT</span></h2>
         </div>
         <div class="profile-pic">
             <i class="fas fa-user-circle"></i>
         </div>
     </header>
 
-    <main class="dashboard">
-        <!-- Colonne Gauche : Progression & Objectifs -->
+    <!-- PAGE 1 : ACCUEIL -->
+    <main id="page-accueil" class="dashboard app-page active">
         <section class="col">
             <div class="card progression-card glow-border">
                 <h3>PROGRESSION GLOBALE</h3>
@@ -53,10 +51,9 @@
             </div>
         </section>
 
-        <!-- Colonne Centrale : Intégration IA -->
         <section class="col">
             <div class="card ai-card">
-                <h3>INTÉGRATION IA</h3>
+                <h3>INTELLIGENCE ARTIFICIELLE</h3>
                 <div class="ai-avatar">
                     <i class="fas fa-robot"></i>
                 </div>
@@ -72,11 +69,10 @@
             </div>
         </section>
 
-        <!-- Colonne Droite : KPIs et Macros -->
         <section class="col">
             <div class="card macros-card">
                 <div class="macro-section">
-                    <h3>CONSOMMATION MACROS</h3>
+                    <h3>MACROS</h3>
                     <div class="chart-container-small">
                         <canvas id="macrosChart"></canvas>
                     </div>
@@ -90,7 +86,47 @@
                     <button class="btn-blue small-btn" onclick="addWater()">+250ml</button>
                 </div>
             </div>
-            <div class="card kpi-card">
+        </section>
+    </main>
+
+    <!-- PAGE 2 : SÉANCES -->
+    <main id="page-seances" class="dashboard app-page">
+        <section class="col-full">
+            <div class="card glow-border">
+                <h3>SÉANCE DU JOUR : JOUR 1 (Poitrine / Triceps / Abdos)</h3>
+                <div class="exercise-item mt-3">
+                    <div class="exercise-header">
+                        <h4>1. Développé Couché</h4>
+                        <span class="badge">4 Séries x 10 Reps</span>
+                    </div>
+                    <p class="mt-1 text-muted">Focus sur la phase excentrique. Garde les omoplates serrées.</p>
+                    <button class="btn-blue small-btn mt-2" onclick="this.innerText='✓ Terminé'; this.style.opacity='0.5';">Terminé</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PAGE 3 : NUTRITION -->
+    <main id="page-nutrition" class="dashboard app-page">
+        <section class="col-full">
+            <div class="card">
+                <h3>MON PLAN ALIMENTAIRE</h3>
+                <div class="meal-item mt-2">
+                    <p><strong>Petit déjeuner (550 kcal)</strong></p>
+                    <p class="text-muted">3 œufs, 60g flocons d'avoine, 1 banane, café</p>
+                </div>
+                <div class="meal-item mt-2">
+                    <p><strong>Déjeuner (650 kcal)</strong></p>
+                    <p class="text-muted">200g poulet, 100g riz complet, brocolis, huile d'olive</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PAGE 4 : STATS -->
+    <main id="page-stats" class="dashboard app-page">
+        <section class="col-full">
+            <div class="card">
                 <h3>ÉVOLUTION SÉANCES & FORCE (KPI)</h3>
                 <div class="chart-container">
                     <canvas id="kpiChart"></canvas>
@@ -99,12 +135,23 @@
         </section>
     </main>
 
+    <!-- PAGE 5 : COACH -->
+    <main id="page-coach" class="dashboard app-page">
+        <section class="col-full">
+            <div class="card text-center">
+                <h3>Mon Coach Personnel</h3>
+                <p class="mt-3">"Chaque jour est un nouveau round Soufiane. Reste focus sur tes objectifs."</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- BARRE DE NAVIGATION DYNAMIQUE -->
     <nav class="bottom-nav">
-        <a href="#" class="active"><i class="fas fa-home"></i><span>Accueil</span></a>
-        <a href="#"><i class="fas fa-calendar-alt"></i><span>Séances</span></a>
-        <a href="#"><i class="fas fa-apple-alt"></i><span>Nutrition</span></a>
-        <a href="#"><i class="fas fa-chart-bar"></i><span>Stats</span></a>
-        <a href="#"><i class="fas fa-comment-dots"></i><span>Coach</span></a>
+        <a href="#" class="nav-link active" data-target="page-accueil"><i class="fas fa-home"></i><span>Accueil</span></a>
+        <a href="#" class="nav-link" data-target="page-seances"><i class="fas fa-calendar-alt"></i><span>Séances</span></a>
+        <a href="#" class="nav-link" data-target="page-nutrition"><i class="fas fa-apple-alt"></i><span>Nutrition</span></a>
+        <a href="#" class="nav-link" data-target="page-stats"><i class="fas fa-chart-bar"></i><span>Stats</span></a>
+        <a href="#" class="nav-link" data-target="page-coach"><i class="fas fa-comment-dots"></i><span>Coach</span></a>
     </nav>
 
     <script src="app.js"></script>
